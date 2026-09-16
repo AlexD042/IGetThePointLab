@@ -11,7 +11,6 @@ private:
 	double x;
 	double y;
 public:
-
 	Point(double inputX, double inputY) {
 		x = inputX;
 		y = inputY;
@@ -52,11 +51,46 @@ public:
 		return result;
 	}
 
+	Point operator*(double multiplier) {
+		x *= multiplier;
+		y *= multiplier;
+		return *this;
+	}
+
+	// prefix increments x
+	Point operator++() {
+		x = x + 1;
+		return *this;
+	}
+
+	// postfix increments y
+	Point operator++(int) {
+		y = y + 1;
+		return *this;
+	}
+
+	// prefix decrements x
+	Point operator--() {
+		x = x - 1;
+		return *this;
+	}
+
+	// postfix decrements y
+	Point operator--(int) {
+		y = y - 1;
+		return *this;
+	}
+
 	void printFormatted() {
 		cout << '(' << x << ", " << y << ')';
 	}
 
 };
+
+std::ostream& operator<<(std::ostream& output, Point p) {
+	output << '(' << p.getX() << ", " << p.getY() << ')';
+	return output;
+}
 
 int main() {
 	Point p1 = Point(1.0, 2.0);
@@ -70,8 +104,12 @@ int main() {
 	cout << (p1 != p3) << '\n';
 	cout << (p1 != p2) << '\n';
 	cout << (p1 != p2) << '\n';
-	midp12.printFormatted();
-	cout << '\n';
+	cout << midp12 << '\n';
+	cout << p1 * 2 << '\n';
+	cout << ++p1 << '\n';
+	cout << p1++ << '\n';
+	cout << --p1 << '\n';
+	cout << p1-- << '\n';
 
 	return 0;
 }

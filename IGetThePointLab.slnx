@@ -3,5 +3,5 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="IGetThePointLab/IGetThePointLab.vcxproj" />
+  <Project Path="IGetThePointLab/IGetThePointLab.vcxproj" Id="2d229982-2bb8-413c-8b3f-4714fe708803" />
 </Solution>
