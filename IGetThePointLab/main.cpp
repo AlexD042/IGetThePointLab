@@ -1,9 +1,11 @@
 #include <cmath>
 #include <iostream>
 #include <string>
+#include <sstream>
 
 using std::pow;
 using std::cout;
+using std::cin;
 using std::string;
 
 class Point {
@@ -11,7 +13,7 @@ private:
 	double x;
 	double y;
 public:
-	Point(double inputX, double inputY) {
+	Point(double inputX = 0, double inputY = 0) {
 		x = inputX;
 		y = inputY;
 	}
@@ -51,45 +53,80 @@ public:
 		return result;
 	}
 
+	// Multiplies x & y by a constant
 	Point operator*(double multiplier) {
 		x *= multiplier;
 		y *= multiplier;
 		return *this;
 	}
 
-	// prefix increments x
+	// prefix increments x by 1
 	Point operator++() {
 		x = x + 1;
 		return *this;
 	}
 
-	// postfix increments y
+	// postfix increments y by 1
 	Point operator++(int) {
 		y = y + 1;
 		return *this;
 	}
 
-	// prefix decrements x
+	// prefix decrements x by 1
 	Point operator--() {
 		x = x - 1;
 		return *this;
 	}
 
-	// postfix decrements y
+	// postfix decrements y by1
 	Point operator--(int) {
 		y = y - 1;
 		return *this;
 	}
 
-	void printFormatted() {
-		cout << '(' << x << ", " << y << ')';
+	// access either x or y of a point
+	double operator[](int i) {
+		if (i == 0) {
+			return (*this).getX();
+		}
+		else if (i == 1) {
+			return (*this).getY();
+		}
+		else {
+			return 0;
+		}
 	}
 
 };
 
+// Output a point formatted
 std::ostream& operator<<(std::ostream& output, Point p) {
 	output << '(' << p.getX() << ", " << p.getY() << ')';
 	return output;
+}
+
+// Takes input of the form: "(x, y)"
+std::istream& operator>>(std::istream& input, Point& p) {
+	char c1; // '('
+	input >> c1;
+
+	double inputX; // 'x'
+	input >> inputX;
+	p.setX(inputX);
+
+	char c2; // ','
+	input >> c2;
+
+	// spaces are ignored for cin
+
+	double inputY; // 'y'
+	input >> inputY;
+	p.setY(inputY);
+
+	char c3; // ')'
+	input >> c3;
+	
+	return input;
 }
 
 int main() {
@@ -110,6 +147,12 @@ int main() {
 	cout << p1++ << '\n';
 	cout << --p1 << '\n';
 	cout << p1-- << '\n';
+	cout << p1[0] << '\n';
+	cout << p1[1] << '\n';
+
+	Point p;
+	cin >> p;
+	cout << p;
 
 	return 0;
 }
